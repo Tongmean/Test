@@ -1,10 +1,5 @@
 
 from django.contrib.sessions.models import Session
-from django.utils import timezone
-from tokenize import group
-from urllib import response
-from xml.etree.ElementTree import PI
-from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
