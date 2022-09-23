@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- W3school -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap Glypicon Icon Link -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--DataTable-->
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/a4f690b883.js" crossorigin="anonymous"></script>
+    <!-- Google Chart -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <style>
+        .footer-section {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .onhover-sexy {
+            transition: .5s;
+            color: #000;
+        }
+
+        .onhover-sexy:hover {
+            transition: .5s;
+            opacity: 0.5;
+            color: #c3c3c3;
+        }
+
+        li {
+            list-style-type: none;
+            display: flex;
+            justify-content: start;
+            padding-bottom: 20px;
+            transition: 0.4s;
+            cursor: pointer;
+            
+        }
+
+        li:hover {
+            transition: 0.4s;
+            opacity: 0.7;
+        }
+
+        li>a {
+            padding-left: 25px;
+        }
+        li>i {
+            padding-left: 10px;
+        }
+        div.dataTables_wrapper {
+            margin: 0 auto;
+        }
+        .item-card {
+            display: inline-block;
+            width: 130px;
+            height: 100px;
+            box-shadow:5px 2px #227c54;
+            background-image: linear-gradient(90deg, #227c54 0%, #50a7c2 100%);
+            border-radius: 10px;
+            padding-bottom: 50px;
+            margin-bottom: 10px;
+        }
+        .typewriter h3 {
+            overflow: hidden;
+            /* Ensures the content is not revealed until the animation */
+            border-right: .15em solid orange;
+            /* The typwriter cursor */
+            white-space: nowrap;
+            /* Keeps the content on a single line */
+            margin: 0 auto;
+            /* Gives that scrolling effect as the typing happens */
+            letter-spacing: .15em;
+            /* Adjust as needed */
+            animation: typing 7s steps(40, end), blink-caret .75s step-end infinite;
+            animation-iteration-count: infinite;
+          }
+          /* The typing effect */
+          
+          @keyframes typing {
+            from {
+              width: 0
+            }
+            to {
+              width: 100%
+            }
+          }
+          /* The typewriter cursor effect */
+          
+          @keyframes blink-caret {
+            from, to {
+              border-color: transparent
+            }
+            50% {
+              border-color: orange;
+            }
+        }
+        {% comment %} .home {
+            margin-left:50px !important;
+            margin-right:50px !important;
+        }
+        {% endcomment %}
+        .barchart{
+            border-right:3px solid blue;
+        }
+        .weekly{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-top: 30px;     
+        }
+        .Apple {
+            border-left:3px solid darkblue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="w3-sidebar w3-animate-left" style="display:none; padding:0%; margin:0%; " id="mySidebar">
+        <div class="col d-flex justify-content-end">
+            <button class="btn btn-danger m-3" onclick="w3_close()">
+                X
+            </button>
+        </div>
+        <div class="">
+            <div>
+                <div>
+                    {% include 'Sidebar.html' %} 
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--Main Display-->
+    <div id="main">
+        <div class="navbar" style="background-image:linear-gradient(90deg, #42948e 0%, #0fcd58 100%)">
+            <button onclick="w3_open()" id="openNav" class="btn text-white" style="font-size: 25px" >&#9776;</button>
+            <div class="col text-start">
+                <h3 class="ps-2 text-white">Discrepancy Portal</h3>
+            </div>
+        </div>
+
+
+        <!-- Kom Pass Side Bar -->
+        <div class="container">
+            <div class="row">
+                <h3 class="pt-2 ms-3"><i class="fa fa-book" style="font-size:24px"></i>   Today Overview</h3>
+            </div>
+            <div class="row text-center border rouned-2 m-1 border-2 shadow">
+                {% if request.user.groups.get.name == 'admin' %}
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <div id="message" class="alert {{ message.tags }} alert-primary alert-dismissible fade show " role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                </button>
+                                {% if message.tags == 'info' %}
+                                {{ message }}
+                                {% endif %} 
+                            </div>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} 
+                {% endif %} 
+                <div class="col-sm-3 d-flex flex-column justify-content-center typewriter">
+                    <h4>Welcome,</h4>
+                    <h3 class="text-success title" id="ProfileName">{{request.user.Profile.Fullname}}</h3>
+                </div>
+                <div class="col-sm-9">
+                    <div class="container row p-2">
+                        <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
+                            <p>Today Cases</p>
+                            <h2>{{Today}}</h2>
+                            
+                        </div>
+                        <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
+                            <p>Weekly Cases</p>
+                            <h2>{{week}}</h2>
+                        </div>
+                        <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
+                            <p>Monthly Cases</p>
+                            <h2>{{month}}</h2>
+                        </div>
+                        <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
+                            <p>Yearly Cases</p>
+                            <h2>{{year}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div>
+        </div>
+        <div class="container mt-1 home">
+            <div class="row shadow h-75 m-2">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center py-2">
+                        <h4 class="py-1"><i class="fa fa-bar-chart" style="font-size:27px"></i>
+                        </i id="typewriter">ShortCut</h4>
+                        
+                    </div>
+                </div>
+                <div class="container row d-flex justify-context-center my-2 ms-1">
+                    {% if request.user.groups.get.name == 'User' %}
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25">
+                                <p>Go to</p>
+                                <p><i class="fa fa-pencil" style="font-size:24px"></i>
+                                    <a href="InsertRecord" style="text-decoration: none; color: #000"
+                                      >&nbsp;Insert Record</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25">
+                                <p>GO To</p>
+                                <p><i class="fa fa-address-book" style="font-size: 24px"></i>
+                                    <a href="ShipmentRecordList" style="text-decoration: none; color: #000"
+                                      >&nbsp;Shipment Record</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25">
+                                <p>Go To</p>
+                                <p><i class='fas fa-tasks' style='font-size:24px'></i>
+                                    <a href="MyActivities" style="text-decoration: none; color: #000"
+                                      >&nbsp;My Activities</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if request.user.groups.get.name == 'admin' %}
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25 d-flex justify-content-between">
+                                <div>
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                    <h5>{{Shipform}} Shipment Form </h5>
+                                </div>
+                                <div class="">
+                                    <p>GO To</p>
+                                    <p><i class="fa fa-pencil" style="font-size:24px"></i>
+                                        <a href="ShipmentList" style="text-decoration: none; color: #000"
+                                        >Insert Action</a
+                                        >
+                                        
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25">
+                                <p>GO To</p>
+                                <p><i class='fas fa-tasks' style='font-size:24px'></i>
+                                    <a href="MyTask" style="text-decoration: none; color: #000"
+                                      >&nbsp;My Task</a
+                                    >
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="col-sm">
+                        <div class="card">
+                            <div class="card-body h-25">
+                                <p>GO To</p>
+                                <p><i class="fa fa-bar-chart-o" style="font-size: 24px"></i>
+                                    <a href="Dashboard" style="text-decoration: none; color: #000"
+                                      >&nbsp;Dashboard</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+           
+            {% comment %} <div class="row shadow h-75 m-2">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center py-2">
+                        <h4 class="py-1"><i class="fa fa-bar-chart" style="font-size:27px"></i>
+                        </i id="typewriter">Chart Overview</h4>
+                        
+                    </div>
+                </div>
+                <div class=" col-xl-6 col-lg-6 col-md-12 col-sm-12 barchart" id=""  >
+                    <!--bar-->
+                    <canvas id="Homebar" style="width:100%;max-width:600px" class="" >
+                        <!--bar-->
+                    </canvas>
+                </div> 
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-center ms-5" id="myPlot1" style="width:40%;"  >
+                    <!--Pie-->
+                </div>
+            
+            </div> {% endcomment %}
+            <br>
+            {% comment %} <div class="row weekly m-2">
+                <div class=" card card-header mb-2">
+                    <h5><i class='fas fa-calendar-alt me-3' style='font-size:30px'></i>Weekly</h5>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-center">
+                    <div class="my-1">
+                        <h5>Mode Of TranSportation </h5>
+                    </div>
+                    <canvas id="weekly" style="width:100%;max-width:600px"></canvas>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-center Apple">
+                    <div class="my-1">
+                        <h5>Type of Discrepancy</h5>
+                    </div>
+                    <canvas id="myChartweekly" style="width:100%;max-width:600px"></canvas>
+
+                </div>
+            </div> {% endcomment %}
+        </div> 
+
+    </div>
+    <div style="height:150px">
+    </div>
+    <script>
+        function w3_open() {
+            document.getElementById("main").style.marginLeft = "20%";
+            document.getElementById("mySidebar").style.width = "20%";
+            document.getElementById("main").style.width = "80%";
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("openNav").style.display = 'none';
+        }
+        function w3_close() {
+            document.getElementById("main").style.marginLeft = "0%";
+            document.getElementById("main").style.width = "100%";
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("openNav").style.display = "inline-block";
+        }
+    </script>
+    <!-- Bootsrap-Js-link-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <!--Jqury-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--Data Table-->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <!--ChartJs-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!--Plotly-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <script>
+        var xValues = ["Shortage Quantity", "Over Quantity", "Wrong Parts", "Mixed Parts", "PO problems"];
+        var yValues = [{{Shortage}},{{Over}}, {{Wrong}}, {{Mixed}}, {{PO}}];
+        var barColors = ["darkblue", "green","blue","orange","purple"];
+        
+        new Chart("Homebar", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Type Of Discrepancy"
+            }
+          }
+        });
+    </script>
+    <script>
+        var xArray = ["Shortage Quantity", "Over Quantity", "Wrong Parts", "Mixed Parts", "PO problems"];
+        var yArray = [{{Shortage}},{{Over}}, {{Wrong}}, {{Mixed}}, {{PO}}];
+        var layout = {title:"Type of Discrepancy"};
+        var data = [{labels:xArray, values:yArray, type:"pie"}];
+        Plotly.newPlot("myPlot1", data, layout);
+    </script>
+    <script text="javascript">
+        setTimeout(fade_out, 3000);
+        function fade_out() {
+            $("#message").fadeOut().empty();
+        }
+
+    </script>
+    <!--Weekly-->
+    <script>
+        var xValues = ["Monday","Tuesday","Wendesday","Thurday","Friend","Saturday","Sunday"];
+        
+        new Chart("weekly", {
+          type: "line",
+          data: {
+            labels: xValues,
+            datasets: [{ 
+              data: [{{MonAri}},{{TuesAri}},{{WenAri}},{{ThurAri}},{{FriAri}},{{SatAri}},{{SunAri}}],
+              borderColor: "red",
+              fill: false
+            }, { 
+              data: [{{MonTruck}},{{TuesTruck}},{{WenTruck}},{{ThurTruck}},{{FriTruck}},{{SatTruck}},{{SunTruck}}],
+              borderColor: "green",
+              fill: false
+            }, { 
+              data: [{{MonOcean}},{{TuesOcean}},{{WenOcean}},{{ThurOcean}},{{FriOcean}},{{SatOcean}},{{SunOcean}}],
+              borderColor: "blue",
+              fill: false
+            }]
+          },
+          options: {
+            legend: {display: false}
+          }
+        });
+    </script>
+        <!--Weekly---->
+    <script>
+        var xValues = ["Monday","Tuesday","Wendesday","Thurday","Friend","Saturday","Sunday"];
+        var yValues = [{{Mon}},{{Tues}},{{Wen}},{{Thur}},{{Fri}},{{Sat}},{{Sun}}];
+        
+        new Chart("myChartweekly", {
+            type: "line",
+            data: {
+            labels: xValues,
+            datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: yValues
+            }]
+            },
+            options: {
+            legend: {display: false},
+            scales: {
+                yAxes: [{ticks: {min:0 , max:{{week}}+10  }}],
+            }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
