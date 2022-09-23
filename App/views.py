@@ -456,7 +456,6 @@ def Home(request):
     # Month = []
     # for x in range(1,8):
     #     Month.append(ActionCause.objects.filter(ReportDate__week_day = x, ReportDate__week =  week_num, Transaction_Number__ModeOfTranSportation = 'Ocean').count())
-    print(timezone.now())
     print(request.user.email + request.user.Profile.Email)
     Shipform = ShipmentForm.objects.filter(Status= 'Submitted').count()
 

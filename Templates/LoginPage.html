@@ -71,11 +71,11 @@
     
         .messagesLogin {
             display:flex;
-            
+           
         }
         .body{
             height:100vh;
-            
+            position:relative;
         }
         .imglogo{
             display:flex;
@@ -94,11 +94,11 @@
 <body>
     {% load crispy_forms_tags %}
     {% load static %}
-    <div class="container-fluid " style="background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg'); height:100vh;">
-        <div class="row body">
+    <div class="container-fluid " >
+        <div class="row body" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg'); height:100vh;">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-5">
                 <div class="title my-5 typewriter">
-                    <h1>
+                    <h1 class="text-success">
                         Welcome to Discrepancy Portal
                     </h1>
                 </div>
