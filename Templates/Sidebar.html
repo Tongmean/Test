@@ -3,10 +3,10 @@
   <div class="flex d-flex justify-content-center align-items-center" >
     <img class="rounded-circle shadow" style="width: 150px; height: 150px;  object-fit:cover"
         {% if request.user.Profile.Profile_Img %}
-        src="{{request.user.Profile.Profile_Img.url|default:""}}"
+        src="{{request.user.Profile.Profile_Img.url}}"
         {% endif %}
       /> 
-  </div>
+  </div> 
   <h6 class="text-center text-info mt-5">
      
       {{request.user.Profile.Fullname}}

@@ -14,7 +14,7 @@ class Profile(models.Model):
     Description = models.CharField(max_length=60, null=True)
     Date_Created = models.DateTimeField(auto_now_add=True, null=True)
     Email = models.EmailField(null=True, blank=True, max_length=200)
-    # Profile_Img = models.ImageField(null= True, blank= True, default='Default_User.png', upload_to='Profile_pic')
+    Profile_Img = models.ImageField(null= True, blank= True)
     
     def __str__(self):
         return self.Fullname

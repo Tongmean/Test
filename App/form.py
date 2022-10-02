@@ -19,7 +19,7 @@ class SetPasswordForm(SetPasswordForm):
 class updateProfile(ModelForm):
     class Meta:
         model = Profile
-        fields = ['Fullname', 'Description','Email' ]
+        fields = ['Fullname', 'Description','Email', 'Profile_Img' ]
         
 class Shipmentrecord(ModelForm):
     AREA = (
