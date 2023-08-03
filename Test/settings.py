@@ -79,20 +79,23 @@ WSGI_APPLICATION = 'Test.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-import dj_database_url
+# import dj_database_url
 
-DATABASE_URL = "postgresql://postgres:XXdaiBYN9PkNUIV9hX1O@containers-us-west-41.railway.app:6831/railway"
+# DATABASE_URL = "postgresql://postgres:XXdaiBYN9PkNUIV9hX1O@containers-us-west-41.railway.app:6831/railway"
 
-DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 # }
-
+DATABASES = {
+    'default': {
+        'django.db.backends.mysql',
+        'NAME': 'sql6637260',
+        'USER': 'sql6637260',
+        'PASSWORD': '1AIcuRlK1u',
+        'HOST': 'sql6.freesqldatabase.com',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
