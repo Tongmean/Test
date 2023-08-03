@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from django.db.backends.mysql.base import DatabaseWrapper
+DatabaseWrapper.data_types['DateTimeField'] = 'datetime' 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,14 +90,28 @@ WSGI_APPLICATION = 'Test.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'django.db.backends.mysql',
-        'NAME': 'sql6637260',
+        'ENGINE':'django.db.backends.mysql',
+        'NAME' : 'sql6637260',
         'USER': 'sql6637260',
         'PASSWORD': '1AIcuRlK1u',
         'HOST': 'sql6.freesqldatabase.com',
         'PORT': '3306',
+            "OPTIONS": {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'mydb',
+#         'USER': 'root',
+#         'PASSWORD': 'admin',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
